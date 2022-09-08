@@ -19,7 +19,7 @@ const main = () => {
 }
 
 const createUser = () => {
-    app.post('/api/users', (req, res) => {
+    app.route('/api/users').post((req, res) => {
         const username = req.body.username;
         const id = uuidv4();
     
@@ -33,6 +33,14 @@ const createUser = () => {
                 res.json({ error: err });
             } else {
                 res.json({ username: data.username, _id: data._id });
+            }
+        });
+    }).get((req, res) => {
+        User.find({}, (err, data) => {
+            if (err) {
+                res.json({ error: err });
+            } else {
+                res.json(data);
             }
         });
     })
