@@ -1,18 +1,6 @@
-import mongoose from 'mongoose';
+import { User } from './model/user.js';
 import app from "./index.js";
 import { v4 as uuidv4 } from 'uuid';
-
-const Schema = mongoose.Schema;
-
-const userSchema = new Schema({
-    username: {
-        type: String,
-        required: true
-    },
-    _id: String
-})
-
-const User = mongoose.model('User', userSchema);
 
 const main = () => {
     createUser();
