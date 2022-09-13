@@ -25,11 +25,12 @@ const createExercise = () => {
             if (err) {
                 res.json({ error: err });
             } else {
+                const username = data[0].username;
                 newExecise.save((err, data) => {
                     if (err) {
                         res.json({ error: err });
                     } else {
-                        res.json({ _id: data._id, username: data.username, date: moment(data.date).format("ddd, MMM DD YYYY"), duration: data.duration, description: data.description });
+                        res.json({ _id: data._id, username: username, date: moment(data.date).format("ddd, MMM DD YYYY"), duration: data.duration, description: data.description });
                     }
                 });
             }
