@@ -12,7 +12,7 @@ const createExercise = () => {
         const id = req.body[':_id'];
         const description = req.body.description;
         const duration = req.body.duration;
-        const date = req.body.date;
+        const date = req.body.date ? req.body.date : new Date();
 
         var newExecise = new Exercise({
             _id: id,
@@ -26,11 +26,13 @@ const createExercise = () => {
                 res.json({ error: err });
             } else {
                 const username = data[0].username;
+                const now = moment().format("ddd, MMM DD YYYY");
+                
                 newExecise.save((err, data) => {
                     if (err) {
-                        res.json({ error: err });
+                        res.send({ error: err });
                     } else {
-                        res.json({ _id: data._id, username: username, date: moment(data.date).format("ddd, MMM DD YYYY"), duration: data.duration, description: data.description });
+                        res.send({ _id: data._id, username: username, date: moment(new Date(data.date)).format("ddd, MMM DD YYYY"), duration: data.duration, description: data.description });
                     }
                 });
             }
